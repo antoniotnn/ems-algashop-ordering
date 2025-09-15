@@ -1,5 +1,6 @@
 package com.algaworks.algashop.ordering.domain.entity;
 
+import com.algaworks.algashop.ordering.domain.exception.CustomerArchivedException;
 import com.algaworks.algashop.ordering.domain.utility.IdGenerator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -65,7 +66,40 @@ class CustomerTest {
                 c -> Assertions.assertThat(c.email()).isNotEqualTo("john.doe@gmail.com"),
                 c -> Assertions.assertThat(c.phone()).isEqualTo("000-000-0000"),
                 c -> Assertions.assertThat(c.document()).isEqualTo("000-000-0000"),
-                c -> Assertions.assertThat(c.birthDate()).isNull()
+                c -> Assertions.assertThat(c.birthDate()).isNull(),
+                c -> Assertions.assertThat(c.isPromotionNotificationsAllowed()).isFalse()
         );
+    }
+
+    @Test
+    void given_archivedCustomer_whenTryToUpdate_shouldGenerateException() {
+        Customer customer = new Customer(
+                IdGenerator.generateTimeBasedUUID(),
+                "Anonymous",
+                null,
+                "anonymous@anonymous.com",
+                "000-000-0000",
+                "000-000-0000",
+                false,
+                true,
+                OffsetDateTime.now(),
+                OffsetDateTime.now(),
+                10
+        );
+
+        Assertions.assertThatExceptionOfType(CustomerArchivedException.class)
+                .isThrownBy(customer::archive);
+
+        Assertions.assertThatExceptionOfType(CustomerArchivedException.class)
+                .isThrownBy(() -> customer.changeEmail("email@gmail.com"));
+
+        Assertions.assertThatExceptionOfType(CustomerArchivedException.class)
+                .isThrownBy(() -> customer.changePhone("123-123-1111"));
+
+        Assertions.assertThatExceptionOfType(CustomerArchivedException.class)
+                .isThrownBy(() -> customer.enablePromotionNotifications());
+
+        Assertions.assertThatExceptionOfType(CustomerArchivedException.class)
+                .isThrownBy(() -> customer.disablePromotionNotifications());
     }
 }
