@@ -22,16 +22,12 @@ public class ErrorMessages {
     public static final String ERROR_ORDER_CANNOT_BE_PLACED_HAS_NO_BILLING_INFO =
             "Order %s cannot be placed, it has no billing info";
 
-    public static final String ERROR_ORDER_CANNOT_BE_PLACED_INVALID_SHIPPING_COST =
-            "Order %s cannot be placed, shipping cost is invalid";
-
-    public static final String ERROR_ORDER_CANNOT_BE_PLACED_INVALID_EXPECTED_DELIVERY_DATE =
-            "Order %s cannot be placed, expected delivery date is invalid";
-
     public static final String ERROR_ORDER_CANNOT_BE_PLACED_HAS_NO_PAYMENT_METHOD =
             "Order %s cannot be placed, it has no payment method";
+
     public static final String ERROR_ORDER_DOES_NOT_CONTAIN_ITEM =
             "Order %s does not contain item %s";
+
     public static final String ERROR_PRODUCT_IS_OUT_OF_STOCK =
             "Product %s is out of stock";
 }
