@@ -31,7 +31,7 @@ public class Order {
     private OffsetDateTime canceledAt;
     private OffsetDateTime readyAt;
 
-    private BillingInfo billing;
+    private Billing billing;
     private Shipping shipping;
 
     private OrderStatus status;
@@ -43,7 +43,7 @@ public class Order {
     public Order(OrderId id, CustomerId customerId, Money totalAmount,
                  Quantity totalItems, OffsetDateTime placedAt,
                  OffsetDateTime paidAt, OffsetDateTime canceledAt,
-                 OffsetDateTime readyAt, BillingInfo billing,
+                 OffsetDateTime readyAt, Billing billing,
                  Shipping shipping, OrderStatus status, PaymentMethod paymentMethod, Set<OrderItem> items) {
         this.setId(id);
         this.setCustomerId(customerId);
@@ -115,9 +115,9 @@ public class Order {
         this.setPaymentMethod(paymentMethod);
     }
 
-    public void changeBillingInfo(BillingInfo billingInfo) {
-        Objects.requireNonNull(billingInfo);
-        this.setBilling(billingInfo);
+    public void changeBilling(Billing billing) {
+        Objects.requireNonNull(billing);
+        this.setBilling(billing);
     }
 
     public void changeShipping(Shipping newShipping) {
@@ -185,7 +185,7 @@ public class Order {
         return readyAt;
     }
 
-    public BillingInfo billing() {
+    public Billing billing() {
         return billing;
     }
 
@@ -235,10 +235,10 @@ public class Order {
 
     private void verifyIfCanChangeToPlaced() {
         if (this.shipping() == null) {
-            throw OrderCannotBePlacedException.noShippingInfo(this.id());
+            throw OrderCannotBePlacedException.noShipping(this.id());
         }
         if (this.billing() == null) {
-            throw OrderCannotBePlacedException.noBillingInfo(this.id());
+            throw OrderCannotBePlacedException.noBilling(this.id());
         }
         if (this.paymentMethod() == null) {
             throw OrderCannotBePlacedException.noPaymentMethod(this.id());
@@ -292,7 +292,7 @@ public class Order {
         this.readyAt = readyAt;
     }
 
-    private void setBilling(BillingInfo billing) {
+    private void setBilling(Billing billing) {
         this.billing = billing;
     }
 

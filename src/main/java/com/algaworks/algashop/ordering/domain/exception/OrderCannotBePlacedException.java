@@ -18,15 +18,15 @@ public class OrderCannotBePlacedException extends DomainException {
         );
     }
 
-    // noShippingInfo
-    public static OrderCannotBePlacedException noShippingInfo(OrderId id) {
+    // noShipping
+    public static OrderCannotBePlacedException noShipping(OrderId id) {
         return new OrderCannotBePlacedException(
                 String.format(ERROR_ORDER_CANNOT_BE_PLACED_HAS_NO_SHIPPING_INFO, id)
         );
     }
 
-    // noBillingInfo
-    public static OrderCannotBePlacedException noBillingInfo(OrderId id) {
+    // noBilling
+    public static OrderCannotBePlacedException noBilling(OrderId id) {
         return new OrderCannotBePlacedException(
                 String.format(ERROR_ORDER_CANNOT_BE_PLACED_HAS_NO_BILLING_INFO, id)
         );
