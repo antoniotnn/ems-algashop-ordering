@@ -51,6 +51,9 @@ public class OrderTestDataBuilder {
                 order.markAsPaid();
             }
             case READY -> {
+                order.place();
+                order.markAsPaid();
+                order.markAsReady();
             }
             case CANCELED -> {
             }
@@ -94,9 +97,9 @@ public class OrderTestDataBuilder {
                 .build();
     }
 
-    public static Shipping aShipingAlt() {
+    public static Shipping aShippingAlt() {
         return Shipping.builder()
-                .cost(new Money("20"))
+                .cost(new Money("20.00"))
                 .expectedDate(LocalDate.now().plusWeeks(2))
                 .address(anAddressAlt())
                 .recipient(Recipient.builder()
@@ -147,4 +150,5 @@ public class OrderTestDataBuilder {
         this.status = status;
         return this;
     }
+
 }
