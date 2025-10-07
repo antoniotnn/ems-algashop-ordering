@@ -1,0 +1,42 @@
+package com.algaworks.algashop.ordering.domain.model.exception;
+
+import com.algaworks.algashop.ordering.domain.model.valueobject.id.OrderId;
+
+import static com.algaworks.algashop.ordering.domain.model.exception.ErrorMessages.*;
+
+public class OrderCannotBePlacedException extends DomainException {
+
+
+    private OrderCannotBePlacedException(String message) {
+        super(message);
+    }
+
+    // noItems
+    public static OrderCannotBePlacedException noItems(OrderId id) {
+        return new OrderCannotBePlacedException(
+                String.format(ERROR_ORDER_CANNOT_BE_PLACED_HAS_NO_ITEMS, id)
+        );
+    }
+
+    // noShipping
+    public static OrderCannotBePlacedException noShipping(OrderId id) {
+        return new OrderCannotBePlacedException(
+                String.format(ERROR_ORDER_CANNOT_BE_PLACED_HAS_NO_SHIPPING_INFO, id)
+        );
+    }
+
+    // noBilling
+    public static OrderCannotBePlacedException noBilling(OrderId id) {
+        return new OrderCannotBePlacedException(
+                String.format(ERROR_ORDER_CANNOT_BE_PLACED_HAS_NO_BILLING_INFO, id)
+        );
+    }
+
+    // noPaymentMethod
+    public static OrderCannotBePlacedException noPaymentMethod(OrderId id) {
+        return new OrderCannotBePlacedException(
+                String.format(ERROR_ORDER_CANNOT_BE_PLACED_HAS_NO_PAYMENT_METHOD, id)
+        );
+    }
+
+}
