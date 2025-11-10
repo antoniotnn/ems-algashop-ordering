@@ -9,7 +9,8 @@ public class ProductTestDataBuilder {
 
     public static final ProductId DEFAULT_PRODUCT_ID = new ProductId();
 
-    private ProductTestDataBuilder() {}
+    private ProductTestDataBuilder() {
+    }
 
     public static Product.ProductBuilder aProduct() {
         return Product.builder()
@@ -21,7 +22,7 @@ public class ProductTestDataBuilder {
 
     public static Product.ProductBuilder aProductUnavailable() {
         return Product.builder()
-                .id(DEFAULT_PRODUCT_ID)
+                .id(new ProductId())
                 .name(new ProductName("Desktop FX9000"))
                 .price(new Money("5000"))
                 .inStock(false);
@@ -29,7 +30,7 @@ public class ProductTestDataBuilder {
 
     public static Product.ProductBuilder aProductAltRamMemory() {
         return Product.builder()
-                .id(DEFAULT_PRODUCT_ID)
+                .id(new ProductId())
                 .name(new ProductName("4GB RAM"))
                 .price(new Money("200"))
                 .inStock(true);
@@ -37,7 +38,7 @@ public class ProductTestDataBuilder {
 
     public static Product.ProductBuilder aProductAltMousePad() {
         return Product.builder()
-                .id(DEFAULT_PRODUCT_ID)
+                .id(new ProductId())
                 .name(new ProductName("Mouse Pad"))
                 .price(new Money("100"))
                 .inStock(true);
