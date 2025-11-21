@@ -1,8 +1,6 @@
 package com.algaworks.algashop.ordering.domain.model.service;
 
 import com.algaworks.algashop.ordering.domain.model.entity.*;
-import com.algaworks.algashop.ordering.domain.model.exception.OrderCannotBeEditedException;
-import com.algaworks.algashop.ordering.domain.model.exception.OrderCannotBePlacedException;
 import com.algaworks.algashop.ordering.domain.model.exception.ShoppingCartCantProceedToCheckoutException;
 import com.algaworks.algashop.ordering.domain.model.valueobject.*;
 import org.junit.jupiter.api.Test;
@@ -76,8 +74,7 @@ class CheckoutServiceTest {
         Shipping shippingInfo = OrderTestDataBuilder.aShipping();
         PaymentMethod paymentMethod = PaymentMethod.CREDIT_CARD;
 
-        //assertThatExceptionOfType(ShoppingCartCantProceedToCheckoutException.class)
-        assertThatExceptionOfType(OrderCannotBePlacedException.class)
+        assertThatExceptionOfType(ShoppingCartCantProceedToCheckoutException.class)
                 .isThrownBy(() -> checkoutService.checkout(shoppingCart, billingInfo, shippingInfo, paymentMethod));
 
         assertThat(shoppingCart.isEmpty()).isTrue();
