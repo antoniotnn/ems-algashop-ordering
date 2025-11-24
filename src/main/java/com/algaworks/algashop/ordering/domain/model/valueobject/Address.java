@@ -18,8 +18,8 @@ public record Address(
     public Address {
         FieldValidations.requiresNonBlank(street);
         FieldValidations.requiresNonBlank(neighborhood);
-        FieldValidations.requiresNonBlank(number);
         FieldValidations.requiresNonBlank(city);
+        FieldValidations.requiresNonBlank(number);
         FieldValidations.requiresNonBlank(state);
         Objects.requireNonNull(zipCode);
     }
