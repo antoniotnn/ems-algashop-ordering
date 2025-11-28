@@ -19,7 +19,7 @@ public class CustomerInputTestDataBuilder {
                         .street("Bourbon Street")
                         .number("1200")
                         .complement("Apt. 901")
-                        .neibhborhood("North Ville")
+                        .neighborhood("North Ville")
                         .city("Yostfort")
                         .state("South Carolina")
                         .zipCode("70283")

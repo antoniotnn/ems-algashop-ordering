@@ -5,6 +5,7 @@ import lombok.Builder;
 
 import java.util.Objects;
 
+
 public record Address(
         String street,
         String complement,

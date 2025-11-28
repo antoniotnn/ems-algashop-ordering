@@ -14,7 +14,7 @@ public class CustomerUpdateInputTestDataBuilder {
                         .street("Amphitheatre Parkway")
                         .number("1600")
                         .complement("")
-                        .neibhborhood("Mountain View")
+                        .neighborhood("Mountain View")
                         .city("Mountain View")
                         .state("Carolina")
                         .zipCode("94043")
