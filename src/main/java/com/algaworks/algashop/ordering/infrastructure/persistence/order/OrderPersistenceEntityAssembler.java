@@ -47,6 +47,8 @@ public class OrderPersistenceEntityAssembler {
 
         orderPersistenceEntity.setCustomer(customerPersistenceEntity);
 
+        orderPersistenceEntity.addEvents(order.domainEvents());
+
         return orderPersistenceEntity;
     }
 

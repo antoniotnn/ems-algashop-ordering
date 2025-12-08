@@ -109,16 +109,25 @@ public class Order
         this.verifyIfCanChangeToPlaced();
         this.changeStatus(OrderStatus.PLACED);
         this.setPlacedAt(OffsetDateTime.now());
+        publishDomainEvent(new OrderPlacedEvent(this.id(), this.customerId(), this.placedAt()));
     }
 
     public void markAsPaid() {
         this.changeStatus(OrderStatus.PAID);
         this.setPaidAt(OffsetDateTime.now());
+        publishDomainEvent(new OrderPaidEvent(this.id(), this.customerId(), this.placedAt()));
     }
 
     public void markAsReady() {
         this.changeStatus(OrderStatus.READY);
         this.setReadyAt(OffsetDateTime.now());
+        publishDomainEvent(new OrderReadyEvent(this.id(), this.customerId(), this.readyAt()));
+    }
+
+    public void cancel() {
+        this.changeStatus(OrderStatus.CANCELED);
+        this.setCanceledAt(OffsetDateTime.now());
+        publishDomainEvent(new OrderCanceledEvent(this.id(), this.customerId(), this.canceledAt()));
     }
 
     public void changePaymentMethod(PaymentMethod paymentMethod) {
@@ -166,11 +175,6 @@ public class Order
         this.items.remove(orderItem);
 
         this.recalculateTotals();
-    }
-
-    public void cancel() {
-        this.changeStatus(OrderStatus.CANCELED);
-        this.setCanceledAt(OffsetDateTime.now());
     }
 
     public boolean isDraft() {
