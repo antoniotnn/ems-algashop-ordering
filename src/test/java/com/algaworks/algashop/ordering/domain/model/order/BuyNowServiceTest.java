@@ -12,7 +12,6 @@ import com.algaworks.algashop.ordering.domain.model.product.ProductTestDataBuild
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -29,9 +28,6 @@ class BuyNowServiceTest {
 
     @Mock
     private Orders orders;
-
-    @Mock
-    private CustomerHaveFreeShippingSpecification customerHaveFreeShippingSpecification;
 
     @BeforeEach
     void setup() {
