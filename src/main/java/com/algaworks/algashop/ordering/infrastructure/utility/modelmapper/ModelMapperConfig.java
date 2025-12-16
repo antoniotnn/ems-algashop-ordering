@@ -1,6 +1,6 @@
 package com.algaworks.algashop.ordering.infrastructure.utility.modelmapper;
 
-import com.algaworks.algashop.ordering.application.customer.management.CustomerOutput;
+import com.algaworks.algashop.ordering.application.customer.query.CustomerOutput;
 import com.algaworks.algashop.ordering.application.utility.Mapper;
 import com.algaworks.algashop.ordering.domain.model.commons.FullName;
 import com.algaworks.algashop.ordering.domain.model.customer.BirthDate;
