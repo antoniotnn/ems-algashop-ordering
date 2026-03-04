@@ -24,6 +24,7 @@ import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRun
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.UUID;
 
@@ -33,12 +34,11 @@ import static io.restassured.config.JsonConfig.jsonConfig;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL,
 //        ids = "com.algaworks.algashop:product-catalog:0.0.1-SNAPSHOT:8781")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class OrderControlerIT {
 
     @LocalServerPort
     private int port;
-
-    private static boolean databaseInitialized;
 
     @Autowired
     private CustomerPersistenceEntityRepository customerRepository;
@@ -82,15 +82,11 @@ public class OrderControlerIT {
     }
 
     private void initDatabase() {
-        if (databaseInitialized) {
-            return;
-        }
         customerRepository.saveAndFlush(
                 CustomerPersistenceEntityTestDataBuilder.aCustomer()
                         .id(validCustomerId)
                         .build()
         );
-        databaseInitialized = true;
     }
 
     @Test
