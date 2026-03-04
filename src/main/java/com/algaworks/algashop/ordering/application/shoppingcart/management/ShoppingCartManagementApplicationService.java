@@ -25,10 +25,14 @@ public class ShoppingCartManagementApplicationService {
     @Transactional
     public void addItem(ShoppingCartItemInput input) {
         Objects.requireNonNull(input);
-        ShoppingCart shoppingCart = shoppingCarts.ofId(new ShoppingCartId(input.getShoppingCartId()))
+        ShoppingCartId shoppingCartId = new ShoppingCartId(input.getShoppingCartId());
+        ProductId productId = new ProductId(input.getProductId());
+
+        ShoppingCart shoppingCart = shoppingCarts.ofId(shoppingCartId)
                 .orElseThrow(ShoppingCartNotFoundException::new);
-        Product product = productCatalogService.ofId(new ProductId(input.getProductId()))
-                .orElseThrow(ProductNotFoundException::new);
+
+        Product product = productCatalogService.ofId(productId)
+                .orElseThrow(() -> new ProductNotFoundException(productId));
 
         shoppingCart.addItem(product, new Quantity(input.getQuantity()));
         shoppingCarts.add(shoppingCart);
