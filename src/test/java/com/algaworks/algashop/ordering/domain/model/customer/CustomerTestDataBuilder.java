@@ -4,6 +4,7 @@ import com.algaworks.algashop.ordering.domain.model.commons.*;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 public class CustomerTestDataBuilder {
 
@@ -15,7 +16,7 @@ public class CustomerTestDataBuilder {
         return Customer.brandNew()
                 .fullName(new FullName("John", "Doe"))
                 .birthDate(new BirthDate(LocalDate.of(1991, 7, 5)))
-                .email(new Email("john.doe@gmail.com"))
+                .email(new Email("john.doe_" + UUID.randomUUID() + "@gmail.com"))
                 .phone(new Phone("478-256-2504"))
                 .document(new Document("255-08-0578"))
                 .promotionNotificationsAllowed(false)
@@ -38,7 +39,7 @@ public class CustomerTestDataBuilder {
                 .archivedAt(null)
                 .fullName(new FullName("John", "Doe"))
                 .birthDate(new BirthDate(LocalDate.of(1991, 7, 5)))
-                .email(new Email("john.doe@gmail.com"))
+                .email(new Email("john.doe_" + UUID.randomUUID() + "@gmail.com"))
                 .phone(new Phone("478-256-2504"))
                 .document(new Document("255-08-0578"))
                 .promotionNotificationsAllowed(true)
