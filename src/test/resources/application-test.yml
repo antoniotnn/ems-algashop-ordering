@@ -19,6 +19,7 @@ spring:
     user: postgres
     password: postgres
     url: jdbc:postgresql://localhost:5432/ordering_test
+
 algashop:
   integrations:
     shipping.provider: FAKE

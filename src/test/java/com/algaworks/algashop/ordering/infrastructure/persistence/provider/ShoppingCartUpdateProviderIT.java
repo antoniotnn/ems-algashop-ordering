@@ -1,18 +1,23 @@
-package com.algaworks.algashop.ordering.infrastructure.persistence.shoppingcart;
+package com.algaworks.algashop.ordering.infrastructure.persistence.provider;
 
 import com.algaworks.algashop.ordering.domain.model.customer.CustomerTestDataBuilder;
+import com.algaworks.algashop.ordering.domain.model.product.ProductTestDataBuilder;
+import com.algaworks.algashop.ordering.domain.model.shoppingcart.ShoppingCart;
+import com.algaworks.algashop.ordering.domain.model.shoppingcart.ShoppingCartItem;
 import com.algaworks.algashop.ordering.domain.model.commons.Money;
 import com.algaworks.algashop.ordering.domain.model.product.Product;
 import com.algaworks.algashop.ordering.domain.model.commons.Quantity;
 import com.algaworks.algashop.ordering.domain.model.product.ProductId;
-import com.algaworks.algashop.ordering.domain.model.product.ProductTestDataBuilder;
-import com.algaworks.algashop.ordering.domain.model.shoppingcart.ShoppingCart;
-import com.algaworks.algashop.ordering.domain.model.shoppingcart.ShoppingCartItem;
 import com.algaworks.algashop.ordering.domain.model.shoppingcart.ShoppingCartTestDataBuilder;
 import com.algaworks.algashop.ordering.infrastructure.persistence.customer.CustomerPersistenceEntityAssembler;
-import com.algaworks.algashop.ordering.infrastructure.persistence.customer.CustomersPersistenceProvider;
+import com.algaworks.algashop.ordering.infrastructure.persistence.shoppingcart.ShoppingCartPersistenceEntityAssembler;
 import com.algaworks.algashop.ordering.infrastructure.persistence.SpringDataAuditingConfig;
+import com.algaworks.algashop.ordering.infrastructure.persistence.customer.CustomersPersistenceProvider;
 import com.algaworks.algashop.ordering.infrastructure.persistence.customer.CustomerPersistenceEntityDisassembler;
+import com.algaworks.algashop.ordering.infrastructure.persistence.shoppingcart.ShoppingCartPersistenceEntityDisassembler;
+import com.algaworks.algashop.ordering.infrastructure.persistence.shoppingcart.ShoppingCartPersistenceEntityRepository;
+import com.algaworks.algashop.ordering.infrastructure.persistence.shoppingcart.ShoppingCartUpdateProvider;
+import com.algaworks.algashop.ordering.infrastructure.persistence.shoppingcart.ShoppingCartsPersistenceProvider;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +26,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,8 +41,8 @@ import org.springframework.transaction.annotation.Transactional;
         CustomerPersistenceEntityDisassembler.class,
         SpringDataAuditingConfig.class
 })
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Sql(scripts = "classpath:db/clean/afterMigrate.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 class ShoppingCartUpdateProviderIT {
 
     private ShoppingCartsPersistenceProvider persistenceProvider;
@@ -46,10 +52,10 @@ class ShoppingCartUpdateProviderIT {
     private ShoppingCartUpdateProvider shoppingCartUpdateProvider;
 
     @Autowired
-    ShoppingCartUpdateProviderIT(ShoppingCartsPersistenceProvider persistenceProvider,
-                                 CustomersPersistenceProvider customersPersistenceProvider,
-                                 ShoppingCartPersistenceEntityRepository entityRepository,
-                                 ShoppingCartUpdateProvider shoppingCartUpdateProvider) {
+    public ShoppingCartUpdateProviderIT(ShoppingCartsPersistenceProvider persistenceProvider,
+                                        CustomersPersistenceProvider customersPersistenceProvider,
+                                        ShoppingCartPersistenceEntityRepository entityRepository,
+                                        ShoppingCartUpdateProvider shoppingCartUpdateProvider) {
         this.persistenceProvider = persistenceProvider;
         this.customersPersistenceProvider = customersPersistenceProvider;
         this.entityRepository = entityRepository;
@@ -57,7 +63,7 @@ class ShoppingCartUpdateProviderIT {
     }
 
     @BeforeEach
-    void setup() {
+    public void setup() {
         if (!customersPersistenceProvider.exists(CustomerTestDataBuilder.DEFAULT_CUSTOMER_ID)) {
             customersPersistenceProvider.add(
                     CustomerTestDataBuilder.existingCustomer().build()
@@ -71,7 +77,7 @@ class ShoppingCartUpdateProviderIT {
         ShoppingCart shoppingCart = ShoppingCartTestDataBuilder.aShoppingCart().withItems(false).build();
 
         Product product1 = ProductTestDataBuilder.aProduct().price(new Money("2000")).build();
-        Product product2 = ProductTestDataBuilder.aProductAltRamMemory().price(new Money("200.00")).build();
+        Product product2 = ProductTestDataBuilder.aProductAltRamMemory().price(new Money("200")).build();
 
         shoppingCart.addItem(product1, new Quantity(2));
         shoppingCart.addItem(product2, new Quantity(1));
@@ -81,7 +87,7 @@ class ShoppingCartUpdateProviderIT {
         ProductId productIdToUpdate = product1.id();
         Money newProduct1Price = new Money("1500");
         Money expectedNewItemTotalPrice = newProduct1Price.multiply(new Quantity(2));
-        Money expectedNewCartTotalAmount = expectedNewItemTotalPrice.add(new Money("200.00"));
+        Money expectedNewCartTotalAmount = expectedNewItemTotalPrice.add(new Money("200"));
 
         shoppingCartUpdateProvider.adjustPrice(productIdToUpdate, newProduct1Price);
 
@@ -94,6 +100,7 @@ class ShoppingCartUpdateProviderIT {
 
         Assertions.assertThat(item.totalAmount()).isEqualTo(expectedNewItemTotalPrice);
         Assertions.assertThat(item.price()).isEqualTo(newProduct1Price);
+
     }
 
     @Test
@@ -103,12 +110,10 @@ class ShoppingCartUpdateProviderIT {
 
         Product product1 = ProductTestDataBuilder.aProduct()
                 .price(new Money("2000"))
-                .inStock(true)
-                .build();
+                .inStock(true).build();
         Product product2 = ProductTestDataBuilder.aProductAltRamMemory()
-                .price(new Money("200.00"))
-                .inStock(true)
-                .build();
+                .price(new Money("200"))
+                .inStock(true).build();
 
         shoppingCart.addItem(product1, new Quantity(2));
         shoppingCart.addItem(product2, new Quantity(1));
@@ -116,7 +121,7 @@ class ShoppingCartUpdateProviderIT {
         persistenceProvider.add(shoppingCart);
 
         var productIdToUpdate = product1.id();
-        var productIdToNotUpdate = product2.id();
+        var productIdNotToUpdate = product2.id();
 
         shoppingCartUpdateProvider.changeAvailability(productIdToUpdate, false);
 
@@ -126,9 +131,10 @@ class ShoppingCartUpdateProviderIT {
 
         Assertions.assertThat(item.isAvailable()).isFalse();
 
-        ShoppingCartItem item2 = updatedShoppingCart.findItem(productIdToNotUpdate);
+        ShoppingCartItem item2 = updatedShoppingCart.findItem(productIdNotToUpdate);
 
         Assertions.assertThat(item2.isAvailable()).isTrue();
+
     }
 
 
