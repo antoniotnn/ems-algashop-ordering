@@ -26,7 +26,6 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.UUID;
 
-import static com.algaworks.algashop.ordering.infrastructure.persistence.entity.ShoppingCartPersistenceEntityTestDataBuilder.existingShoppingCart;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.restassured.config.JsonConfig.jsonConfig;
 
@@ -195,12 +194,6 @@ public class OrderControllerIT {
 
     @Test
     public void shouldCreateOrderUsingShoppingCart() {
-        var shoppingCartPersistence = existingShoppingCart()
-                .id(validShoppingCartId)
-                .customer(customerRepository.getReferenceById(validCustomerId))
-                .build();
-        shoppingCartRepository.save(shoppingCartPersistence);
-
         String json = AlgaShopResourceUtils.readContent("json/create-order-with-shopping-cart.json");
 
         OrderDetailOutput orderDetailOutput = RestAssured
