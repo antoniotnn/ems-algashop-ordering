@@ -23,5 +23,5 @@ spring:
 algashop:
   integrations:
     shipping.provider: FAKE
-    rapidex.url: http://localhost:8888
-    product-catalog.url: http://localhost:8781
+    rapidex.url: http://localhost:8787
+    product-catalog.url: http://localhost:8787
