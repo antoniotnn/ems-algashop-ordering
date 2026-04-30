@@ -12,11 +12,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -24,14 +27,10 @@ import java.util.UUID;
 
 @SpringBootTest
 @Transactional
+@Testcontainers
 class CustomerManagementApplicationServiceIT {
 
-    private static PostgreSQLContainer postgreSQLContainer
-            = new PostgreSQLContainer<>("postgres:17-alpine")
-                .withDatabaseName("ordering_test");
-
-    @BeforeAll
-    public static void beforeAll() {
+    static {
         /*
             O Docker v29 aumentou a API mínima aceita pelo daemon para v1.44.
             Quando o client Java (via docker-java/Testcontainers) acaba usando/caindo para uma API mais antiga (ex.: 1.32),
@@ -42,23 +41,13 @@ class CustomerManagementApplicationServiceIT {
             Abaixo, o setProperty contorna o problema.
          */
         System.setProperty("api.version", "1.44");
-        postgreSQLContainer.start();
     }
 
-    @AfterAll
-    public static void afterAll() {
-        postgreSQLContainer.stop();
-    }
-
-    @DynamicPropertySource
-    private static void configureDatasourceProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
-        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
-        registry.add("spring.flyway.url", postgreSQLContainer::getJdbcUrl);
-        registry.add("spring.flyway.user", postgreSQLContainer::getUsername);
-        registry.add("spring.flyway.password", postgreSQLContainer::getPassword);
-    }
+    @Container
+    @ServiceConnection
+    private static PostgreSQLContainer postgreSQLContainer
+            = new PostgreSQLContainer<>("postgres:17-alpine")
+                .withDatabaseName("ordering_test");
 
     @Autowired
     private CustomerManagementApplicationService customerManagementApplicationService;
