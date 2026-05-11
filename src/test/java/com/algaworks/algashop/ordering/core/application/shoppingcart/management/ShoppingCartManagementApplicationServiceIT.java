@@ -1,7 +1,7 @@
 package com.algaworks.algashop.ordering.core.application.shoppingcart.management;
 
 import com.algaworks.algashop.ordering.core.application.AbstractApplicationIT;
-import com.algaworks.algashop.ordering.core.application.shoppingcart.ShoppingCartManagementApplicationService;
+import com.algaworks.algashop.ordering.core.application.shoppingcart.ForManagingShoppingCarts;
 import com.algaworks.algashop.ordering.core.domain.model.customer.*;
 import com.algaworks.algashop.ordering.core.domain.model.product.*;
 import com.algaworks.algashop.ordering.core.domain.model.shoppingcart.*;
@@ -22,7 +22,7 @@ import java.util.UUID;
 class ShoppingCartManagementApplicationServiceIT extends AbstractApplicationIT {
 
     @Autowired
-    private ShoppingCartManagementApplicationService service;
+    private ForManagingShoppingCarts service;
 
     @Autowired
     private ShoppingCarts shoppingCarts;
