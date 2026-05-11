@@ -1,15 +1,16 @@
 package com.algaworks.algashop.ordering.infrastructure.listener.customer;
 
 import com.algaworks.algashop.ordering.core.application.AbstractApplicationIT;
-import com.algaworks.algashop.ordering.core.application.customer.loyaltylpoints.CustomerLoyaltyPointsApplicationService;
-import com.algaworks.algashop.ordering.core.application.customer.notification.CustomerNotificationApplicationService;
-import com.algaworks.algashop.ordering.core.application.customer.notification.CustomerNotificationApplicationService.NotifyNewRegistrationInput;
+import com.algaworks.algashop.ordering.core.application.customer.ForAddingLoyaltyPoints;
+import com.algaworks.algashop.ordering.core.ports.out.customer.ForNotifyingCustomers;
+import com.algaworks.algashop.ordering.core.ports.out.customer.ForNotifyingCustomers.NotifyNewRegistrationInput;
 import com.algaworks.algashop.ordering.core.domain.model.commons.Email;
 import com.algaworks.algashop.ordering.core.domain.model.commons.FullName;
 import com.algaworks.algashop.ordering.core.domain.model.customer.CustomerId;
 import com.algaworks.algashop.ordering.core.domain.model.customer.CustomerRegisteredEvent;
 import com.algaworks.algashop.ordering.core.domain.model.order.OrderId;
 import com.algaworks.algashop.ordering.core.domain.model.order.OrderReadyEvent;
+import com.algaworks.algashop.ordering.infrastructure.adapters.in.listener.customer.CustomerEventListener;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,10 @@ class CustomerEventListenerIT extends AbstractApplicationIT {
     private CustomerEventListener customerEventListener;
 
     @MockitoBean
-    private CustomerLoyaltyPointsApplicationService loyaltyPointsApplicationService;
+    private ForAddingLoyaltyPoints loyaltyPointsApplicationService;
 
     @MockitoSpyBean
-    private CustomerNotificationApplicationService notificationApplicationService;
+    private ForNotifyingCustomers notificationApplicationService;
 
     @Test
     void shouldListenOrderReadyEvent() {
