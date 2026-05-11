@@ -1,14 +1,14 @@
 package com.algaworks.algashop.ordering.infrastructure.persistence.provider;
 
-import com.algaworks.algashop.ordering.domain.model.commons.Money;
-import com.algaworks.algashop.ordering.domain.model.commons.Quantity;
-import com.algaworks.algashop.ordering.domain.model.customer.CustomerTestDataBuilder;
-import com.algaworks.algashop.ordering.domain.model.product.Product;
-import com.algaworks.algashop.ordering.domain.model.product.ProductId;
-import com.algaworks.algashop.ordering.domain.model.product.ProductTestDataBuilder;
-import com.algaworks.algashop.ordering.domain.model.shoppingcart.ShoppingCart;
-import com.algaworks.algashop.ordering.domain.model.shoppingcart.ShoppingCartItem;
-import com.algaworks.algashop.ordering.domain.model.shoppingcart.ShoppingCartTestDataBuilder;
+import com.algaworks.algashop.ordering.core.domain.model.commons.Money;
+import com.algaworks.algashop.ordering.core.domain.model.commons.Quantity;
+import com.algaworks.algashop.ordering.core.domain.model.customer.CustomerTestDataBuilder;
+import com.algaworks.algashop.ordering.core.domain.model.product.Product;
+import com.algaworks.algashop.ordering.core.domain.model.product.ProductId;
+import com.algaworks.algashop.ordering.core.domain.model.product.ProductTestDataBuilder;
+import com.algaworks.algashop.ordering.core.domain.model.shoppingcart.ShoppingCart;
+import com.algaworks.algashop.ordering.core.domain.model.shoppingcart.ShoppingCartItem;
+import com.algaworks.algashop.ordering.core.domain.model.shoppingcart.ShoppingCartTestDataBuilder;
 import com.algaworks.algashop.ordering.infrastructure.persistence.AbstractPersistenceIT;
 import com.algaworks.algashop.ordering.infrastructure.persistence.SpringDataAuditingConfig;
 import com.algaworks.algashop.ordering.infrastructure.persistence.customer.CustomerPersistenceEntityAssembler;

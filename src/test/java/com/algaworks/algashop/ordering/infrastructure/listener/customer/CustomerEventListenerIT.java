@@ -1,15 +1,15 @@
 package com.algaworks.algashop.ordering.infrastructure.listener.customer;
 
-import com.algaworks.algashop.ordering.application.AbstractApplicationIT;
-import com.algaworks.algashop.ordering.application.customer.loyaltylpoints.CustomerLoyaltyPointsApplicationService;
-import com.algaworks.algashop.ordering.application.customer.notification.CustomerNotificationApplicationService;
-import com.algaworks.algashop.ordering.application.customer.notification.CustomerNotificationApplicationService.NotifyNewRegistrationInput;
-import com.algaworks.algashop.ordering.domain.model.commons.Email;
-import com.algaworks.algashop.ordering.domain.model.commons.FullName;
-import com.algaworks.algashop.ordering.domain.model.customer.CustomerId;
-import com.algaworks.algashop.ordering.domain.model.customer.CustomerRegisteredEvent;
-import com.algaworks.algashop.ordering.domain.model.order.OrderId;
-import com.algaworks.algashop.ordering.domain.model.order.OrderReadyEvent;
+import com.algaworks.algashop.ordering.core.application.AbstractApplicationIT;
+import com.algaworks.algashop.ordering.core.application.customer.loyaltylpoints.CustomerLoyaltyPointsApplicationService;
+import com.algaworks.algashop.ordering.core.application.customer.notification.CustomerNotificationApplicationService;
+import com.algaworks.algashop.ordering.core.application.customer.notification.CustomerNotificationApplicationService.NotifyNewRegistrationInput;
+import com.algaworks.algashop.ordering.core.domain.model.commons.Email;
+import com.algaworks.algashop.ordering.core.domain.model.commons.FullName;
+import com.algaworks.algashop.ordering.core.domain.model.customer.CustomerId;
+import com.algaworks.algashop.ordering.core.domain.model.customer.CustomerRegisteredEvent;
+import com.algaworks.algashop.ordering.core.domain.model.order.OrderId;
+import com.algaworks.algashop.ordering.core.domain.model.order.OrderReadyEvent;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
