@@ -1,7 +1,7 @@
 package com.algaworks.algashop.ordering.core.application.customer.management;
 
 import com.algaworks.algashop.ordering.core.application.AbstractApplicationIT;
-import com.algaworks.algashop.ordering.core.application.customer.ForManagingCustomers;
+import com.algaworks.algashop.ordering.core.application.customer.CustomerManagementApplicationService;
 import com.algaworks.algashop.ordering.core.ports.out.customer.ForNotifyingCustomers;
 import com.algaworks.algashop.ordering.core.ports.in.customer.CustomerOutput;
 import com.algaworks.algashop.ordering.core.ports.in.customer.ForQueryingCustomers;
@@ -22,7 +22,7 @@ import java.util.UUID;
 class CustomerManagementApplicationServiceIT extends AbstractApplicationIT {
 
     @Autowired
-    private ForManagingCustomers customerManagementApplicationService;
+    private CustomerManagementApplicationService customerManagementApplicationService;
 
     @MockitoSpyBean
     private CustomerEventListener customerEventListener;

@@ -1,7 +1,7 @@
 package com.algaworks.algashop.ordering.core.application.customer.loyaltypoints;
 
 import com.algaworks.algashop.ordering.core.application.AbstractApplicationIT;
-import com.algaworks.algashop.ordering.core.application.customer.ForAddingLoyaltyPoints;
+import com.algaworks.algashop.ordering.core.application.customer.CustomerLoyaltyPointsApplicationService;
 import com.algaworks.algashop.ordering.core.domain.model.commons.Email;
 import com.algaworks.algashop.ordering.core.domain.model.commons.Money;
 import com.algaworks.algashop.ordering.core.domain.model.commons.Quantity;
@@ -21,7 +21,7 @@ import java.util.UUID;
 class CustomerLoyaltyPointsApplicationServiceIT extends AbstractApplicationIT {
 
     @Autowired
-    private ForAddingLoyaltyPoints loyaltyPointsService;
+    private CustomerLoyaltyPointsApplicationService loyaltyPointsService;
 
     @Autowired
     private Customers customers;

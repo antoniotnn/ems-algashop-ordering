@@ -1,7 +1,7 @@
 package com.algaworks.algashop.ordering.infrastructure.adapters.in.web.shoppingcart;
 
 import com.algaworks.algashop.ordering.core.ports.in.shoppingcart.ShoppingCartItemInput;
-import com.algaworks.algashop.ordering.core.application.shoppingcart.ForManagingShoppingCarts;
+import com.algaworks.algashop.ordering.core.application.shoppingcart.ShoppingCartManagementApplicationService;
 import com.algaworks.algashop.ordering.core.ports.in.shoppingcart.ShoppingCartOutput;
 import com.algaworks.algashop.ordering.core.ports.in.shoppingcart.ForQueryingShoppingCarts;
 import com.algaworks.algashop.ordering.core.domain.model.customer.CustomerNotFoundException;
@@ -19,7 +19,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ShoppingCartController {
 
-	private final ForManagingShoppingCarts forManagingShoppingCarts;
+	private final ShoppingCartManagementApplicationService forManagingShoppingCarts;
 	private final ForQueryingShoppingCarts forQueryingShoppingCarts;
 
 	@PostMapping

@@ -2,7 +2,7 @@ package com.algaworks.algashop.ordering.presentation.customer;
 
 import com.algaworks.algashop.ordering.core.ports.in.commons.AddressData;
 import com.algaworks.algashop.ordering.core.ports.in.customer.CustomerInput;
-import com.algaworks.algashop.ordering.core.application.customer.ForManagingCustomers;
+import com.algaworks.algashop.ordering.core.application.customer.CustomerManagementApplicationService;
 import com.algaworks.algashop.ordering.core.ports.in.customer.CustomerUpdateInput;
 import com.algaworks.algashop.ordering.core.application.customer.query.*;
 import com.algaworks.algashop.ordering.core.ports.in.customer.CustomerFilter;
@@ -40,7 +40,7 @@ class CustomerControllerContractTest {
     private WebApplicationContext context;
 
     @MockitoBean
-    private ForManagingCustomers customerManagementApplicationService;
+    private CustomerManagementApplicationService customerManagementApplicationService;
 
     @MockitoBean
     private ForQueryingCustomers customerQueryService;

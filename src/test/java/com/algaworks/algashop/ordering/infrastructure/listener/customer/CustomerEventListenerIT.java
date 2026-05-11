@@ -1,7 +1,7 @@
 package com.algaworks.algashop.ordering.infrastructure.listener.customer;
 
 import com.algaworks.algashop.ordering.core.application.AbstractApplicationIT;
-import com.algaworks.algashop.ordering.core.application.customer.ForAddingLoyaltyPoints;
+import com.algaworks.algashop.ordering.core.application.customer.CustomerLoyaltyPointsApplicationService;
 import com.algaworks.algashop.ordering.core.ports.out.customer.ForNotifyingCustomers;
 import com.algaworks.algashop.ordering.core.ports.out.customer.ForNotifyingCustomers.NotifyNewRegistrationInput;
 import com.algaworks.algashop.ordering.core.domain.model.commons.Email;
@@ -30,7 +30,7 @@ class CustomerEventListenerIT extends AbstractApplicationIT {
     private CustomerEventListener customerEventListener;
 
     @MockitoBean
-    private ForAddingLoyaltyPoints loyaltyPointsApplicationService;
+    private CustomerLoyaltyPointsApplicationService loyaltyPointsApplicationService;
 
     @MockitoSpyBean
     private ForNotifyingCustomers notificationApplicationService;

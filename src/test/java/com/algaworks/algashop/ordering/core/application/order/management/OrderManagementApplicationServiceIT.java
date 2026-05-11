@@ -1,7 +1,8 @@
 package com.algaworks.algashop.ordering.core.application.order.management;
 
 import com.algaworks.algashop.ordering.core.application.AbstractApplicationIT;
-import com.algaworks.algashop.ordering.core.application.customer.ForAddingLoyaltyPoints;
+import com.algaworks.algashop.ordering.core.application.customer.CustomerLoyaltyPointsApplicationService;
+import com.algaworks.algashop.ordering.core.application.order.OrderManagementApplicationService;
 import com.algaworks.algashop.ordering.core.domain.model.order.*;
 import com.algaworks.algashop.ordering.core.domain.model.customer.CustomerTestDataBuilder;
 import com.algaworks.algashop.ordering.core.domain.model.customer.Customers;
@@ -33,7 +34,7 @@ class OrderManagementApplicationServiceIT extends AbstractApplicationIT {
     private OrderEventListener orderEventListener;
 
     @MockitoSpyBean
-    private ForAddingLoyaltyPoints loyaltyPointsApplicationService;
+    private CustomerLoyaltyPointsApplicationService loyaltyPointsApplicationService;
 
     @BeforeEach
     void setup() {
