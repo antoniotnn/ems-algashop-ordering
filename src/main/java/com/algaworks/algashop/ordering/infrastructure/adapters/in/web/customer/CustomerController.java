@@ -4,7 +4,7 @@ import com.algaworks.algashop.ordering.core.application.customer.CustomerManagem
 import com.algaworks.algashop.ordering.core.ports.in.customer.*;
 import com.algaworks.algashop.ordering.core.ports.in.shoppingcart.ForQueryingShoppingCarts;
 import com.algaworks.algashop.ordering.core.ports.in.shoppingcart.ShoppingCartOutput;
-import com.algaworks.algashop.ordering.presentation.PageModel;
+import com.algaworks.algashop.ordering.infrastructure.adapters.in.web.PageModel;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
