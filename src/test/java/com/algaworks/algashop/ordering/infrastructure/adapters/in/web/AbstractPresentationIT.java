@@ -2,7 +2,6 @@ package com.algaworks.algashop.ordering.infrastructure.adapters.in.web;
 
 import com.algaworks.algashop.ordering.utils.TestcontainerPostgreSQLConfig;
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemplateTransformer;
 import io.restassured.RestAssured;
 import io.restassured.path.json.config.JsonPathConfig;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,14 +32,14 @@ public abstract class AbstractPresentationIT {
 
     protected static void initWireMock() {
         wireMockRapidex = new WireMockServer(options()
+                .templatingEnabled(true)
                 .port(8780)
-                .usingFilesUnderDirectory("src/test/resources/wiremock/rapidex")
-                .extensions(new ResponseTemplateTransformer(true)));
+                .usingFilesUnderDirectory("src/test/resources/wiremock/rapidex"));
 
         wireMockProductCatalog = new WireMockServer(options()
+                .templatingEnabled(true)
                 .port(8781)
-                .usingFilesUnderDirectory("src/test/resources/wiremock/product-catalog")
-                .extensions(new ResponseTemplateTransformer(true)));
+                .usingFilesUnderDirectory("src/test/resources/wiremock/product-catalog"));
 
         wireMockRapidex.start();
         wireMockProductCatalog.start();
